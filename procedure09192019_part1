@@ -1,0 +1,1000 @@
+  210  ls ~/pkg/metaphlan2/
+  211  ls ~/pkg/metaphlan2_old
+  212  ls ~/pkg/metaphlan2_old/utils/
+  213  python ~/pkg/metaphlan2_old/utils/merge_metaphlan_tables.py ./relative_abundance/*.profile > metaphlan.relab
+  214  python ~/pkg/metaphlan2_old/utils/merge_metaphlan_tables.py ./estimated_number_of_reads_from_the_clade/*.profile > metaphlan.estimated_number
+  215  python ~/pkg/metaphlan2_old/utils/merge_metaphlan_tables.py ./coverage/*.profile > metaphlan.coverage
+  216  ls
+  217  python ~/pkg/metaphlan2_old/utils/merge_metaphlan_tables.py ./average_genome_length_in_the_clade/*.profile > metaphlan.average_genome_length_in_the _clade
+  218  python ~/pkg/metaphlan2_old/utils/merge_metaphlan_tables.py ./average_genome_length_in_the_clade/*.profile > metaphlan.average_genome_len
+  219  ls
+  220  rm metaphlan.average_genome_length_in_the 
+  221  ls
+  222  perl ~/bin/seperate_level.pl metaphlan.relab 
+  223  perl ~/bin/seperate_kingdom.pl metaphlan.relab 
+  224  ls
+  225  history > ../src_LF/metaphlan_post_process_job
+  226  ls
+  227  more metaphlan.relab.7 
+  228    ls
+  229  cd ..
+  230  ls
+  231  cd src_LF/
+  232  ls
+  233  more osc_kraken_fungiDB.pl 
+  234  ls
+  235  cd ..
+  236  ls
+  237  mkdir kraken
+  238  perl src_LF/osc_kraken_fungiDB.pl list2 >kraken.job
+  239  more kraken.job 
+  240  ls
+  241  more OSC.MF.1
+  242  ls *job
+  243  chmod 777 kraken.job 
+  244  ./kraken.job 
+  245  qstat -u ar2767
+  246  ls
+  247  cd kraken/
+  248  ls
+  249  qstat -u ar2767
+  250  ls
+  251  cd /fs/scratch/ar2767
+  252  ls
+  253  cd aptamer2/
+  254  ls
+  255  cd orig/
+  256  ls
+  257  ll *.out
+  258  more DALX13R12B_S7.cluster15.5.out 
+  259  ls
+  260  logout
+  261  ls
+  262  cd /fs/scratch/ar2767/
+  263  ls
+  264  cd Megaspore/
+  265  ls
+  266  cd kraken/
+  267  ls
+  268  more Megaspore-1_S66.report 
+  269  grep -i coagulan *.report
+  270  grep -i subtilis *.report
+  271  grep -i licheniforms  *.report
+  272  grep -i licheni  *.report
+  273  grep -i indicus  *.report
+  274  grep -i clausi  *.report 
+  275  grep -i indi  *.report 
+  276  grep -i indi  *.report |grep -i bacill
+  277  conda activate mypython2
+  278  source ~/.bashrc
+  279  conda activate mypython2
+  280  merge_metaphlan_tables.py *.report > ../kraken.report
+  281  grep -i unclassified *.err > ../kraken.unclassified
+  282  grep -i processed  *.err > ../kraken.totalseq
+  283  pwd
+  284  ls ../src_LF/
+  285  pwe ../src_LF/
+  286  mv clean_kraken_data.pl ../src_LF/
+  287  cd ..
+  288  ls
+  289  perl src_LF/clean_kraken_data.pl kraken.report 
+  290  ls
+  291  more kraken.report.clean 
+  292  mv kraken/get_relab_kraken.pl src_LF/
+  293  ls
+  294  cd merge2
+  295  ls
+  296  wc *.fastq > merge2.count
+  297  bg
+  298  cd ..
+  299  ls
+  300  more profile.summary 
+  301  ls
+  302  more kraken.totalseq 
+  303  cp kraken.totalseq kraken.redsum
+  304  mv kraken.redsum kraken.readsum
+  305  vi kraken.readsum 
+  306  ls
+  307  perl src_LF/get_relab_kraken.pl kraken.readsum kraken.report.clean 
+  308  ls
+  309  more kraken.report.clean.relab 
+  310  history > src_LF/kraken_psot_process
+  311  ls
+  312  grep s__ kraken.report.clean.relab 
+  313  grep s__ kraken.report.clean.relab |grep -i bact
+  314  grep s__ kraken.report.clean.relab > kraken.report.clean.relab.species
+  315  ls
+  316  more OSC.MF.1
+  317  cd /fs/project/PYS0226/database/kraken/
+  318  ls
+  319  cd fungi2019DB/
+  320  ls
+  321  grep -i indicus seqid2taxid.map 
+  322  grep -i indicus taxo.k2d 
+  323  cd taxonomy/
+  324  ls
+  325  grep -i indicus *
+  326  grep -i indicus *|grep -i bacillus
+  327  grep -i coagulan *|grep -i bucillus
+  328  grep -i coagulan *|grep -i bacillus
+  329  qdel 7881228
+  330  qdel 7881229
+  331  ls
+  332  qstat
+  333  qstat -u ar2767
+  334  qdel 7881223
+  335  qdel 7881224
+  336  ls
+  337  pwd
+  338  rm job4
+  339  ls
+  340  cd /fs/scratch/ar2767/
+  341  ls
+  342  cd aptamer2/
+  343  ls
+  344  cd orig/
+  345  ls
+  346  qstat -u ar2767
+  347  cd /fs/scratch/ar2767/
+  348  ls
+  349  cd aptamer
+  350  ls
+  351  cd Clean/
+  352  ls
+  353  cd ..
+  354  ls
+  355  cd good/
+  356  ls
+  357  cd result_15_5/
+  358  ls
+  359  cd cluster_summary/
+  360  ls
+  361  cd ..
+  362  ls
+  363  cd cluster_seq/
+  364  ls
+  365  more *.out
+  366  ls
+  367  cd ..
+  368  ls
+  369  cd ..
+  370  ls
+  371  cd ..
+  372  ls
+  373  touch -r aptamer
+  374  touch -R aptamer
+  375  touch --help
+  376  ls
+  377  touch aptamer
+  378  touch aptamer/*
+  379  touch aptamer/*/*
+  380  touch aptamer/*/*/*
+  381  touch aptamer/*/*/*/*
+  382  touch aptamer/*/*/*/*/*
+  383  ls
+  384  cd aptamer2/
+  385  ls
+  386  cd orig/
+  387  ls
+  388  ll *.out
+  389  qstat -u ar2767
+  390  ls
+  391  mkdir ../cluster
+  392  cd ../cluster
+  393  ls
+  394  pwd
+  395  cd ..
+  396  ls
+  397  cd orig/
+  398  ls
+  399  ll *.out
+  400  mv DALX13R12B_S7.cluster15.5.* ../cluster/
+  401  cd ../
+  402  ls
+  403  cd cluster/
+  404  ls
+  405  ll
+  406  rm DALX13R12B_S7.cluster15.5.err
+  407  ls
+  408  cd ..
+  409  ls
+  410  cd other/
+  411  ls
+  412  cd ..
+  413  ls
+  414  cd orig/
+  415  ls
+  416  ll *.e*
+  417  ll *.o*
+  418  ls
+  419  qstat -u ar2767
+  420  ls
+  421  scp pwd
+  422  pwd
+  423  ls
+  424  cd ..
+  425  ls
+  426  cd other/
+  427  ls
+  428  cd ..
+  429  ls
+  430  cd old/
+  431  ls
+  432  cd ..
+  433  ls
+  434  cd ..
+  435  ls
+  436  cd aptamer
+  437  ls
+  438  cd good/
+  439  ls
+  440  cd result_15_5/
+  441  ls
+  442  more match_group.pl 
+  443  ls
+  444  more aptamer3_meta.txt 
+  445  ls
+  446  cd ..
+  447  ls
+  448  cd ..
+  449  ls
+  450  cd ..
+  451  ls
+  452  cd aptamer2/
+  453  ls
+  454  cd old/
+  455  ls
+  456  logout
+  457  cd /fs/scratch/ar2767/
+  458  ls
+  459  cd aptamer2/
+  460  ls
+  461  cd orig/
+  462  ls
+  463  cd ..
+  464  ls
+  465  cd cluster/
+  466  ls
+  467  more DALX13R12B_S7.cluster15.5.out 
+  468  ls
+  469  pwd
+  470  ls
+  471  mkdir 15.5
+  472  mv *15.5* 15.5
+  473  ls
+  474  ll
+  475  qstat -u ar2767
+  476  ls
+  477  rm *.jpg
+  478  ls
+  479  rm metaphlan.relab 
+  480  ls
+  481  logout
+  482  cd /fs/scratch/ar2767/
+  483  ls
+  484  cd aptamer2/
+  485  ls
+  486  cd cluster/
+  487  ls
+  488  pwd
+  489  ls
+  490  cd ..
+  491  ls
+  492  cd other/
+  493  ls
+  494  cd ..
+  495  ls
+  496  cd old/
+  497  ls
+  498  mv *fasta* ../cluster/
+  499  ls
+  500  cd ..
+  501  ls
+  502  cd cluster/
+  503  ls
+  504  cd ..
+  505  ls
+  506  qstat -u ar2767
+  507  cd orig/
+  508  ll *.out
+  509  more Cortisol40B2_S6.cluster15.3.out 
+  510  ls
+  511  mv Cortisol40B2_S6.cluster15.3.* ../cluster/15.5/
+  512  mv *cluster15.* ../cluster/15.5/
+  513  ls
+  514  cd ..
+  515  ls
+  516  mkdir select_fasta
+  517  cd cluster/
+  518  ls
+  519  cd ..
+  520  ls
+  521  cd orig/
+  522  ls
+  523  mv *.select.fasta ../select_fasta/
+  524  cd ..
+  525  ls
+  526  cd select_fasta/
+  527  ls
+  528  cd ..
+  529  ls
+  530  cd old/
+  531  ls
+  532  cd ..
+  533  ls
+  534  cd cluster/
+  535  ls
+  536  mv *.select.fasta ../select_fasta/
+  537  ls
+  538  cd ..
+  539  ls
+  540  cd old/
+  541  mv * ../cluster/
+  542  ls
+  543  cd ..
+  544  ls
+  545  rmdir old/
+  546  ls
+  547  cd cluster/
+  548  ls
+  549  ll
+  550  cd ..
+  551  ls
+  552  cd select_fasta/
+  553  ls
+  554  cd ..
+  555  ls
+  556  cd orig/
+  557  ls
+  558  ls *.pl
+  559  cp count_summary2.pl ../select_fasta/
+  560  cd ../
+  561  ls
+  562  cd select_fasta/
+  563  ls
+  564  vi count_summary2.pl 
+  565  ls
+  566  perl count_summary2.pl 1>count.summary.out 2>count.summary.err
+  567  more count.summary.out 
+  568  ls
+  569  perl ~/bin/break_title.pl count.summary.out 
+  570  cut -f1,2,4,6,8,10,12 count.summary.out >tmp1
+  571  cut -f3,5,7,9,11,13 count.summary.out >tmp2
+  572  paste tmp1 tmp2 > count.summary.xls
+  573  perl ~/bin/break_title.pl count.summary.xls 
+  574  cd ..
+  575  ls
+  576  cd orig/
+  577  ls
+  578  cp cluster_summary.pl ../cluster/
+  579  cd ..
+  580  ls
+  581  cd cluster/
+  582  ls
+  583  vi cluster_summary.pl 
+  584  perl cluster_summary.pl 1>out 2>err
+  585  more err
+  586  ls
+  587  more out
+  588  ls
+  589  more Cluster.1.cluster15.3.xls 
+  590  ls
+  591  more Cluster.Cortisol40A2_S5.cl
+  592  more Cluster.Cortisol40A2_S5.cluster15.20.xls 
+  593  ls
+  594  more out
+  595  ls
+  596  mv out out.xls
+  597  cd /fs/scratch/ar2767/
+  598  ls
+  599  cd aptamer2/
+  600  ls
+  601  cd cluster/
+  602  ls
+  603  pwd
+  604  ls
+  605  perl cluster_summary.pl 1>cluster.summary.xls
+  606  more cluster.summary.xls 
+  607  ls
+  608  cd /fs/scratch/ar2767/
+  609  ls
+  610  cd aptamer2/
+  611  ls
+  612  cd select_fasta/
+  613  ls
+  614  rm 1.select.fasta 
+  615  rm 2.select.fasta 
+  616  rm 3.select.fasta 
+  617  ls
+  618  rm tmp*
+  619  ls
+  620  rm *.err
+  621  ls
+  622  rm count.summary.out 
+  623  ls
+  624  rm count.summary.xls 
+  625  ls
+  626  cd ..
+  627  ls
+  628  cd old/
+  629  ls
+  630  mv *.select.fasta ../select_fasta/
+  631  ls
+  632  cd ../select_fasta/
+  633  ls
+  634  perl count_summary2.pl 1>count.summary.out 2>count.summary.err
+  635  perl ~/bin/break_title.pl count.summary.out 
+  636  cut -f1,2,4,6,8,10,12 count.summary.out >tmp1
+  637  cut -f3,5,7,9,11,13 count.summary.out >tmp2
+  638  paste tmp1 tmp2 > count.summary.xls
+  639  more count.summary.err 
+  640  rm count.summary.err 
+  641  ls
+  642  vi count.summary.xls 
+  643  ls
+  644  cd project/
+  645  ls
+  646  logout
+  647  cd /fs/scratch/ar2767
+  648  pwd
+  649  ls
+  650  mkdir OralBGIRNASeq092019
+  651  cd Oral*
+  652  ls
+  653  pwd
+  654  mkdir F18FTSUSAT1447_BACnljP
+  655  mkdir F18FTSUSAT1447_BACnljP/results
+  656  ls
+  657  ls F18FTSUSAT1447_BACnljP
+  658  pwd
+  659  ls
+  660  mv r* F18FTSUSAT1447_BACnljP
+  661  mv m* F18FTSUSAT1447_BACnljP
+  662  ls
+  663  cd F18FTSUSAT1447_BACnljP
+  664  pwd
+  665  ls
+  666  pwd
+  667  ls
+  668  cd results
+  669  ls
+  670  ls 10-B
+  671  ls
+  672  ls -l ./*
+  673  ls
+  674  ls ,/66*
+  675  pwd
+  676  ls 66-B
+  677  ls -l 66-B
+  678  ls
+  679  ls -l 66-B
+  680  ls -l 67-C
+  681  ls -l 68-D
+  682  ls -l 69-A
+  683  ls -l 6-B
+  684  ls
+  685  ls -l 7*
+  686  ls
+  687  ls -l 7*
+  688  ls -l 8*
+  689  ls -l 9*
+  690  ls -l
+  691  ls
+  692  ls -l *
+  693  ls | wc
+  694  du -hsc ./
+  695  ls
+  696  cd /fs/scratch/ar2767/
+  697  ls
+  698  cd OralBGIRNASeq092019/
+  699  ls
+  700  mkdir Ann
+  701  ls
+  702  cd Ann
+  703  ls
+  704  pwd
+  705  ls
+  706  cd ..
+  707  ls
+  708  cd mkdir orig
+  709  mkdir orig
+  710  cd F18FTSUSAT1447_BACnljP/
+  711  ls
+  712  cd results/
+  713  ls
+  714  mv */* ../../orig/
+  715  ls
+  716  cd ../../orig/
+  717  ls
+  718  ls |wc
+  719  ls *_1.fq.gz > ../list
+  720  cd ..
+  721  ls
+  722  vi list
+  723  ls
+  724  cd F18FTSUSAT1447_BACnljP/
+  725  ;s
+  726  ls
+  727  cd results/
+  728  ls
+  729  cd ..
+  730  ls
+  731  rm -rf results/
+  732  ls
+  733  gunzip report.tar.gz 
+  734  tar -xv report.tar 
+  735  bg
+  736  ls
+  737  ll
+  738  rm rm ls
+  739  ls
+  740  rm ps
+  741  ps -u ar2767
+  742  ls
+  743  cd ..
+  744  cd
+  745  cd ..
+  746  cd project/
+  747  ls
+  748  cd sponge_RNASeq/
+  749  ls
+  750  cd /fs/scratch/ar2767/
+  751  ls
+  752  cd spongeRNA/
+  753  ls
+  754  mv *.R ~/project/sponge_RNASeq/
+  755  mv *.pl ~/project/sponge_RNASeq/
+  756  ls
+  757  mv list ~/project/sponge_RNASeq/
+  758  ls
+  759  mv procedure  ~/project/sponge_RNASeq/
+  760  ls
+  761  cd RNASeq/
+  762  ls
+  763  cd ..
+  764  ls
+  765  cd orig/
+  766  ls
+  767  cd ..
+  768  ls
+  769  cd clean
+  770  ls
+  771  cd ..
+  772  ls
+  773  cd clean_job/
+  774  ls
+  775  cd ..
+  776  ls
+  777  cd cd template/
+  778  ls
+  779  cd template/
+  780  ls
+  781  rm err 
+  782  rm out 
+  783  ls
+  784  cd ..
+  785  ls
+  786  mv template/ ~/project/sponge
+  787  ls
+  788  cd template/
+  789  ls
+  790  mv combine3.* ~/project/sponge_RNASeq/
+  791  ls
+  792  cd RSEM_sponge/
+  793  ls
+  794  cd ..
+  795  ls
+  796  cd STAR_sponge/
+  797  ls
+  798  cd ..
+  799  ls
+  800  mv * ~/project/sponge_RNASeq/
+  801  ls
+  802  cd ..
+  803  ls
+  804  rmdir template/
+  805  ls
+  806  cd
+  807  cd project/
+  808  ls
+  809  cd sponge
+  810  ls
+  811  rmdir template/
+  812  cd template/
+  813  ls
+  814  cd ..
+  815  ls
+  816  rm-rf template/
+  817  rm -rf template/
+  818  ls
+  819  cd ..
+  820  ls
+  821  cd sponge_RNASeq/
+  822  ls
+  823  more procedure 
+  824  ls
+  825  cd ..
+  826  ls
+  827  cd oralKF/
+  828  ls
+  829  more procedure 
+  830  ls
+  831  more osc_clean_reads.pl 
+  832  ls
+  833  cd ..
+  834  ls
+  835  cd sponge_RNASeq/
+  836  ls
+  837  cp osc_clean_reads.pl /fs/scratch/ar2767/OralBGIRNASeq092019/
+  838  cd /fs/scratch/ar2767/OralBGIRNASeq092019/
+  839  ls
+  840  vi osc_clean_reads.pl 
+  841  mkdir clean_job
+  842  cd clean_job/
+  843  ls
+  844  perl ../osc_clean_reads.pl ../list > job
+  845  chmod 777 job
+  846  ./job
+  847  qstat -u ar2767|wc
+  848  ls
+  849  qstat -u ar2767
+  850  ls
+  851  cd ..
+  852  ls
+  853  cd clean
+  854  ls
+  855  cd ../clean_job/
+  856  ll *.e*
+  857  more OSC.HN.1.e7998366 
+  858  ls
+  859  cd ..
+  860  ls
+  861  vi osc_clean_reads.pl 
+  862  qstat -u ar2767|less
+  863  ls
+  864  cd clean
+  865  ls
+  866  ll
+  867  ll *.err
+  868  ls
+  869  cd ..
+  870  ls
+  871  ls
+  872  cd project/
+  873  ls
+  874  cd /fs/scratch/ar2767/
+  875  ls
+  876  cd spongeRNA/
+  877  ls
+  878  cd ..
+  879  ls
+  880  cd OralBGIRNASeq092019/
+  881  ls
+  882  mkdir clean
+  883  ls
+  884  pwd
+  885  ls
+  886  cd orig/
+  887  ls
+  888  pwd
+  889  ls
+  890  cd ..
+  891  ls
+  892  cd Ann
+  893  pwd
+  894  cd Ann
+  895  ls
+  896  conda activate qiime2
+  897  bash ~/.bashrc
+  898  ls
+  899  conda activate qiime2
+  900  cd
+  901  ls
+  902  pwd
+  903  source ~/.bashrc
+  904  conda activate qiime2
+  905  conda info --envs
+  906  conda activate base
+  907  conda install -c conda-forge -c bioconda -c defaults prokka
+  908  cd pkg/
+  909  ls
+  910  git clone https://github.com/Gaius-Augustus/Augustus.git
+  911  cd ..
+  912  ls
+  913  git clone https://github.com/Gaius-Augustus/Augustus.git
+  914  ls
+  915  cd Augustus/
+  916  ls
+  917  cd scripts/
+  918  ls
+  919  cd ..
+  920  ls
+  921  make
+  922  ls
+  923  cd ..
+  924  ls
+  925  rm -rf Augustus/
+  926  cd pkg/
+  927  ls
+  928  cd augustus-3.2.3/
+  929  ls
+  930  cd bin/
+  931  ls
+  932  ./augustus 
+  933  ./augustus |less
+  934  augustus --paramlist
+  935  ./augustus --paramlist
+  936  cd /fs/scratch/AR2767/
+  937  ls
+  938  cd /fs/scratch/ar2767/
+  939  ls
+  940  mkdir Mreu
+  941  cd Mreu/
+  942  ls
+  943  mkdir ncbi
+  944  cd ncbi
+  945  wget ftp://ftp.ncbi.nlm.nih.gov/genomes/genbank/fungi/Metschnikowia_reukaufii/representative/GCA_003401635.1_MR1_a14_ref/* ./
+  946  ls
+  947  gunzip GCA_003401635.1_MR1_a14_ref_genomic.fna.gz 
+  948  grep ">" GCA_003401635.1_MR1_a14_ref_genomic.fna 
+  949  ~/pkg/augustus-3.2.3/bin/augustus  -h|less
+  950  ~/pkg/augustus-3.2.3/bin/augustus 
+  951  ~/pkg/augustus-3.2.3/bin/augustus --paramlist > ../augustus.param
+  952  ~/pkg/augustus-3.2.3/bin/augustus --paramlist > ../augustus.param 2>err
+  953  more err
+  954  ~/pkg/augustus-3.2.3/bin/augustus 1>out 2>err
+  955  more err
+  956  more out
+  957  ~/pkg/augustus-3.2.3/bin/augustus --species=help > out.species
+  958  ~/pkg/augustus-3.2.3/bin/augustus --species=help > out.species 2>err.species
+  959  more err.species 
+  960  la
+  961  ls
+  962  ~/pkg/augustus-3.2.3/bin/augustus --species=saccharomyces_cerevisiae_S288C GCA_003401635.1_MR1_a14_ref_genomic.fna 1>Mreu.augustus.Scer288.out 2>Mreu.augustus.Scer288.err
+  963  bg
+  964  ls
+  965  ll *.err
+  966  ll *.out
+  967  more Mreu.augustus.Scer288.out 
+  968  ls
+  969  ps
+  970  ls
+  971  ll
+  972  ps
+  973  ll
+  974  ps
+  975  ll
+  976  ps
+  977  ls
+  978  ps
+  979  ll
+  980  ps
+  981  pwd
+  982  ls ~/bin/prokka2gtf.pl 
+  983  more Mreu.augustus.Scer288.err
+  984  more Mreu.augustus.Scer288.out
+  985  tail  Mreu.augustus.Scer288.out
+  986  ls
+  987  ls ~/bin/*augu*
+  988  perl ~/bin/get_augusta_protein.pl Mreu.augustus.Scer288.out >Mreu.augustus.Scer288.protein
+  989  grep ">" Mreu.augustus.Scer288.protein |wc
+  990  ls
+  991  rm Mreu.augustus.Scer288.protein 
+  992  grep ">" Mreu.augustus.Scer288.out.pep |wc
+  993  grep ">" Mreu.augustus.Scer288.out.pep |less
+  994  ls
+  995  ls ~/bin/*august*
+  996  more Mreu.augustus.Scer288.out
+  997  grep -v "#" Mreu.augustus.Scer288.out
+  998  grep -v "#" Mreu.augustus.Scer288.out >Mreu.augustus.Scer288.gff
+  999  wc Mreu.augustus.Scer288.gff 
+ 1000  ls
+ 1001  cd /fs/scratch/ar2767
+ 1002  ls
+ 1003  cd OralBGIRNASeq092019/
+ 1004  ls
+ 1005  cd clean
+ 1006  ls
+ 1007  ls *.err|less
+ 1008  ll *.err|less
+ 1009  rm *.err
+ 1010  ll *.fq
+ 1011  cd ..
+ 1012  ls
+ 1013  cd Ann/
+ 1014  ls
+ 1015  cd Avis
+ 1016  ls
+ 1017  gunzip *.gff.gz
+ 1018  gunzip *.faa.gz
+ 1019  more *.faa
+ 1020  ls
+ 1021  gunzip *.fna.gz
+ 1022  more GCF_900637975.1_53550_F01_cds_from_genomic.fna 
+ 1023  ls
+ 1024  grep -i toxin *.fna
+ 1025  grep -i toxin *.fna|wc
+ 1026  grep -i toxin *.fna|less
+ 1027  ls
+ 1028  gunzip *
+ 1029  gunzip *.gz
+ 1030  ls
+ 1031  cd ..
+ 1032  ls
+ 1033  cd AvisPacBio/
+ 1034  ls
+ 1035  ~/pkg/augustus-3.2.3/bin/augustus --species -help |less
+ 1036  ~/pkg/augustus-3.2.3/bin/augustus --species -h
+ 1037  ~/pkg/augustus-3.2.3/bin/augustus --species=help
+ 1038  ~/pkg/augustus-3.2.3/bin/augustus --species=help|less
+ 1039  ~/pkg/augustus-3.2.3/bin/augustus --species=help >tmp1
+ 1040  ~/pkg/augustus-3.2.3/bin/augustus --species=help 2>tmp1
+ 1041  more tmp1
+ 1042  ls
+ 1043  rm tmp1
+ 1044  ls ~/bin*.linux
+ 1045  ls ~/bin/*.linux
+ 1046  ls ~/pkg/*.linux
+ 1047  ls ~/pkg/prodigal.linux 
+ 1048  ~/pkg/prodigal.linux 
+ 1049  ~/pkg/prodigal.linux -i Actinomyces_viscosus.fasta -o Avis.prodigal.out -f gff -a Avis.prodigal.protein -d Avis.prodigal.nuc
+ 1050  ls
+ 1051  more Avis.prodigal.nuc 
+ 1052  ls
+ 1053  more Avis.prodigal.protein 
+ 1054  ls
+ 1055  cd ..
+ 1056  ls
+ 1057  cd Fnuc/
+ 1058  l;s
+ 1059  ls
+ 1060  gunzip *.gz
+ 1061  ls
+ 1062  more GCF_003019785.1_ASM301978v1_rna_from_genomic.fna 
+ 1063  ls
+ 1064  cd ..
+ 1065  ls
+ 1066  cd Pgin/
+ 1067  ls
+ 1068  gunzip *.gz
+ 1069  ls
+ 1070  more *._rna*
+ 1071  more GCF_002892595.1_ASM289259v1_rna_from_genomic.fna 
+ 1072  ls
+ 1073  cd ..
+ 1074  ls
+ 1075  cd Ppan/
+ 1076  ls
+ 1077  gunzip *.gz
+ 1078  ls
+ 1079  more GCA_000220255.1_ASM22025v1_rna_from_genomic.fna 
+ 1080  ls
+ 1081  cd ..
+ 1082  ls
+ 1083  cd Smut/
+ 1084  ls
+ 1085  gunzip *.gz
+ 1086  ls
+ 1087  more GCA_900475095.1_42197_E01_rna_from_genomic.fna 
+ 1088  ls
+ 1089  cd ..
+ 1090  ls
+ 1091  cd Tfor/
+ 1092  ls
+ 1093  gunzip *.gz
+ 1094  ls
+ 1095  more GCA_006385365.1_ASM638536v1_rna_from_genomic.fna 
+ 1096  ls
+ 1097  cd ..
+ 1098  ls
+ 1099  cd Avis
+ 1100  ls
+ 1101  perl ~/bin/feature_table_2_gtf_nogene.pl GCF_900637975.1_53550_F01_feature_table.txt 
+ 1102  cut -f1-9 GCF_900637975.1_53550_F01_feature_table.txt.nogene.gtf >Avis.gtf
+ 1103  cd ..
+ 1104  ls
+ 1105  cd Fnuc/
+ 1106  ls
+ 1107  perl ~/bin/feature_table_2_gtf_nogene.pl GCF_003019785.1_ASM301978v1_feature_table.txt 
+ 1108  cut -f1-9 GCF_003019785.1_ASM301978v1_feature_table.txt.nogene.gtf >Fnuc.gtf
+ 1109  cd ..
+ 1110  ls
+ 1111  cd Pgin/
+ 1112  ls
+ 1113  perl ~/bin/feature_table_2_gtf_nogene.pl GCF_002892595.1_ASM289259v1_feature_table.txt 
+ 1114  cut -f1-9 GCF_002892595.1_ASM289259v1_feature_table.txt.nogene.gtf >Pgin.gtf
+ 1115  cd ..
+ 1116  ks
+ 1117  ls
+ 1118  cd Ppan/
+ 1119  ls
+ 1120  perl ~/bin/feature_table_2_gtf_nogene.pl GCA_000220255.1_ASM22025v1_feature_table.txt 
+ 1121  cut -f1-9 GCA_000220255.1_ASM22025v1_feature_table.txt.nogene.gtf >Ppan.gtf
+ 1122  cd ..
+ 1123  ls
+ 1124  cd Smut/
+ 1125  ls
+ 1126  perl ~/bin/feature_table_2_gtf_nogene.pl GCA_900475095.1_42197_E01_feature_table.txt 
+ 1127  cut -f1-9 GCA_900475095.1_42197_E01_feature_table.txt.nogene.gtf >Smut.gtf
+ 1128  cd ..
+ 1129  ls
+ 1130  cd Tfor/
+ 1131  ls
+ 1132  perl ~/bin/feature_table_2_gtf_nogene.pl GCA_006385365.1_ASM638536v1_feature_table.txt 
+ 1133  cut -f1-9 GCA_006385365.1_ASM638536v1_feature_table.txt.nogene.gtf >Tfor.gtf
+ 1134  ls
+ 1135  cd ..
+ 1136  ls
+ 1137  cat */*.gtf > oral6.gtf
+ 1138  cd Avis
+ 1139  ls
+ 1140  mv GCF_900637975.1_53550_F01_*.fna Avis.fna
+ 1141  grep ">"  GCF_900637975.1_53550_F01_cds_from_genomic.fna|wc 
+ 1142  grep ">"  GCF_900637975.1_53550_F01_rna_from_genomic.fna|wc 
+ 1143  mv GCF_900637975.1_53550_F01_cds_from_genomic.fna Avis.fna
+ 1144  cd ..
+ 1145  ls
+ 1146  cd Fnuc/
+ 1147  ls
+ 1148  mv GCF_003019785.1_ASM301978v1_cds_from_genomic.fna Fnuc.fna
+ 1149  cd ..
+ 1150  ls
+ 1151  cd Pgin/
+ 1152  ls
+ 1153  mv GCF_002892595.1_ASM289259v1_cds_from_genomic.fna Pgin.fna
+ 1154  cd ..
+ 1155  ls
+ 1156  cd Ppan/
+ 1157  ls
+ 1158  mv GCA_000220255.1_ASM22025v1_cds_from_genomic.fna Ppan.fna
+ 1159  cd ..
+ 1160  lks
+ 1161  ls
+ 1162  cd Smut/
+ 1163  ls
+ 1164  mv GCA_900475095.1_42197_E01_cds_from_genomic.fna Smut.fna
+ 1165  cd ..
+ 1166  ls
+ 1167  cd Tfor/
+ 1168  ls
+ 1169  mv GCA_006385365.1_ASM638536v1_cds_from_genomic.fna Tfor.fna
+ 1170  cd ..
+ 1171  ls
+ 1172  cat Avis/Avis.fna Fnuc/Fnuc.fna Pgin/Pgin.fna Ppan/Ppan.fna Smut/Smut.fna Tfor/Tfor.fna > oral6.fna
+ 1173  ls */*.gtf
+ 1174  cat Avis/Avis.gtf Fnuc/Fnuc.gtf Pgin/Pgin.gtf Ppan/Ppan.gtf Smut/Smut.gtf Tfor/Tfor.gtf > oral6.gtf
+ 1175  ls
+ 1176  ~/pkg/STAR-2.6.0a/bin/Linux_x86_64/STAR --runMode genomeGenerate --genomeDir ./ --genomeFastaFiles oral6.fna --sjdbGTFfile oral6.gtf --sjdbOverhang 149 --genomeSAindexNbases 9
+ 1177  ls
+ 1178  more oral6.gtf
+ 1179  ls
+ 1180  cd ..
+ 1181  ls
+ 1182  cd ..
+ 1183  ls
+ 1184  cd spongeRNA/
+ 1185  ls
+ 1186  cd
+ 1187  cd project/
+ 1188  ls
+ 1189  cd sponge_RNASeq/
+ 1190  ls
+ 1191  more combine3.gtf 
+ 1192  ls
+ 1193  cd /fs/scratch/ar2767/
+ 1194  ls
+ 1195  cd OralBGIRNASeq092019/
+ 1196  ls
+ 1197  cd Ann/
+ 1198  ls
+ 1199  rm chr*
+ 1200  ls
+ 1201  rm log.out
+ 1202  rm Log.out 
+ 1203  ls
+ 1204  vi oral6.gtf 
+ 1205  mkdir starDb
+ 1206  cd starDb/
+ 1207  ~/pkg/STAR-2.6.0a/bin/Linux_x86_64/STAR --runMode genomeGenerate --genomeDir ./ --genomeFastaFiles ../oral6.fna --sjdbGTFfile ../oral6.gtf --sjdbOverhang 149 --genomeSAindexNbases 9
+ 1208  more ../oral6.gtf 
+ 1209  history > ../procedure09192019_part1

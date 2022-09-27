@@ -1,0 +1,235 @@
+9_26_2019
+1. combine the count table
+perl combine_1col_from_multipledata.pl  list 5 > ../gene.count
+## remove the title genes.results.expected_counts to clean the file up
+2. I need to match the names and decide which comparisons way to run the analysis
+perl match_group.pl gene.count
+perl ~/bin/rearrange_column.pl gene.count.ann.xls 1
+./gene.count.ann.xls.rearrange.job
+
+perl ~/bin/break_title.pl gene.count.ann.xls.rearranged |cut -f2 |sort |cut -f1 -d"."|uniq -c
+      4 ArgB_H
+      4 ArgB_L
+      4 CPC
+      8 Ctl
+      1 gene
+      4 H2O2
+      4 H8O8PZn_H
+      4 H8O8PZn_L
+      4 KNO3_H
+      4 KNO3_L
+      4 NaF_H
+      4 NaF_L
+      4 NaH2PO4_H
+      4 NaH2PO4_L
+      4 SnCl2_H
+      4 SnCl2_L
+      4 SnF2_H
+      4 SnF2_L
+mkdir DESEQ_method
+cp gene.count.ann.xls.rearranged DESEQ_method/gene_data
+
+9_27_2019
+1. mkdir Limma_method
+cp gene.count.ann.xls.rearranged Limma_method/gene.count
+2. Limma method development:
+> summary(decideTests(efit))
+       ArgB_HvsCtl ArgB_LvsCtl H2O2vsCtl H8O8PZn_HvsCtl H8O8PZn_LvsCtl
+Down          1676         456      2986           1600           2941
+NotSig        7052       10734      5628           7536           5550
+Up            2485          23      2599           2077           2722
+       KNO3_HvsCtl KNO3_LvsCtl NaF_HvsCtl NaF_LvsCtl NaH2PO4_HvsCtl
+Down          1715          31       1515       2454           3474
+NotSig        7011       11137       7607       7659           5261
+Up            2487          45       2091       1100           2478
+       NaH2PO4_LvsCtl SnCl2_HvsCtl SnCl2_LvsCtl SnF2_HvsCtl SnF2_LvsCtl
+Down             1892         2572         1181        2041        4124
+NotSig           9100         5921         8201        7001        4420
+Up                221         2720         1831        2171        2669
+> tfit <- treat(vfit, lfc=1)
+> dt <- decideTests(tfit)
+> summary(dt)
+       ArgB_HvsCtl ArgB_LvsCtl H2O2vsCtl H8O8PZn_HvsCtl H8O8PZn_LvsCtl
+Down           507           2      2078            169            200
+NotSig        9622       11207      7959          10817          10920
+Up            1084           4      1176            227             93
+       KNO3_HvsCtl KNO3_LvsCtl NaF_HvsCtl NaF_LvsCtl NaH2PO4_HvsCtl
+Down           641          22        491       1895           2399
+NotSig        9630       11169       9919       9044           7651
+Up             942          22        803        274           1163
+       NaH2PO4_LvsCtl SnCl2_HvsCtl SnCl2_LvsCtl SnF2_HvsCtl SnF2_LvsCtl
+Down             1197         1394          317        1288        3287
+NotSig          10000         8727        10398        8944        6730
+Up                 16         1092          498         981        1196
+==============Notice that with number there are reverse dosage effect for SnF2, NaF============Is that relavent to F?????===============================
+Rscript OralTrans.limma.R 1>out 2>err
+
+head -1 gene.count.ann.xls.rearranged.xls >title
+grep NZ_CP028 gene.count.ann.xls.rearranged.xls >tmp.Fnuc
+grep NZ_LR1344 gene.count.ann.xls.rearranged.xls >tmp.Avis
+grep NZ_CP025 gene.count.ann.xls.rearranged.xls >tmp.Pgin
+grep LS4833 gene.count.ann.xls.rearranged.xls >tmp.Smut
+grep VFJI gene.count.ann.xls.rearranged.xls >tmp.Tfor
+grep GL98 gene.count.ann.xls.rearranged.xls >tmp.Ppan
+
+cat title tmp.Fnuc >Fnuc.genecount
+cat title tmp.Avis >Avis.genecount
+cat title tmp.Pgin >Pgin.genecount
+cat title tmp.Smut >Smut.genecount
+cat title tmp.Tfor >Tfor.genecount
+cat title tmp.Ppan >Ppan.genecount
+cd Avis
+Rscript ../OralTrans.limma.R Avis.genecount >Avis.out 2>Avis.err&
+cd ../Func
+Rscript ../OralTrans.limma.R Fnuc.genecount >Fnuc.out 2>Fnuc.err&
+cd ../Pgin
+Rscript ../OralTrans.limma.R Pgin.genecount >Pgin.out 2>Pgin.err&
+cd ../Ppan
+Rscript ../OralTrans.limma.R Ppan.genecount >Ppan.out 2>Ppan.err&
+cd ../Smut
+Rscript ../OralTrans.limma.R Smut.genecount >Smut.out 2>Smut.err&
+cd ../Tfor
+Rscript ../OralTrans.limma.R Tfor.genecount >Tfor.out 2>Tfor.err&
+
+
+11_4_2019
+perl ~/bin/combine_multiple_data_on_first_column_noname.pl gene.id oral6.combine.symbol oral6.combine.genename oral6.combine.KOid oral6.combine.strain > tmp1
+cut -f1,4,6,8,10 tmp1 >oral6.ann
+conda config --add channels conda-forge
+conda config --add channels bioconda
+conda create -n salmon salmon
+conda update -n base conda
+conda activate salmon
+#conda install -c bioconda salmon
+[1] "ArgB_H_vs_Ctl p<=0.05 5758 padj<=0.05 5111"
+[1] "ArgB_L_vs_Ctl p<=0.05 1150 padj<=0.05 146"
+[1] "CPC_vs_Ctl p<=0.05 5236 padj<=0.05 4266"
+[1] "H2O2_vs_Ctl p<=0.05 6059 padj<=0.05 5562"
+[1] "H8O8PZn_H_vs_Ctl p<=0.05 5253 padj<=0.05 3844"
+[1] "H8O8PZn_L_vs_Ctl p<=0.05 7102 padj<=0.05 6294"
+[1] "KNO3_H_vs_Ctl p<=0.05 6416 padj<=0.05 5791"
+[1] "KNO3_L_vs_Ctl p<=0.05 583 padj<=0.05 96"
+[1] "NaF_H_vs_Ctl p<=0.05 5077 padj<=0.05 4273"
+[1] "NaF_L_vs_Ctl p<=0.05 4771 padj<=0.05 3797"
+[1] "NaH2PO4_H_vs_Ctl p<=0.05 6974 padj<=0.05 6560"
+[1] "NaH2PO4_L_vs_Ctl p<=0.05 4659 padj<=0.05 3206"
+[1] "SnCl2_H_vs_Ctl p<=0.05 6073 padj<=0.05 5441"
+[1] "SnCl2_L_vs_Ctl p<=0.05 4782 padj<=0.05 3546"
+[1] "SnF2_H_vs_Ctl p<=0.05 5771 padj<=0.05 5113"
+[1] "SnF2_L_vs_Ctl p<=0.05 7363 padj<=0.05 7048"
+
+
+###################Do the strain seperate analysis #####################
+grep "p<=" Avis/deseq.out 
+[1] "ArgB_H_vs_Ctl p<=0.05 788 padj<=0.05 776"
+[1] "ArgB_L_vs_Ctl p<=0.05 40 padj<=0.05 0"
+[1] "CPC_vs_Ctl p<=0.05 853 padj<=0.05 844"
+[1] "H2O2_vs_Ctl p<=0.05 620 padj<=0.05 584"
+[1] "H8O8PZn_H_vs_Ctl p<=0.05 228 padj<=0.05 66"
+[1] "H8O8PZn_L_vs_Ctl p<=0.05 186 padj<=0.05 50"
+[1] "KNO3_H_vs_Ctl p<=0.05 593 padj<=0.05 540"
+[1] "KNO3_L_vs_Ctl p<=0.05 230 padj<=0.05 117"
+[1] "NaF_H_vs_Ctl p<=0.05 693 padj<=0.05 666"
+[1] "NaF_L_vs_Ctl p<=0.05 392 padj<=0.05 323"
+[1] "NaH2PO4_H_vs_Ctl p<=0.05 343 padj<=0.05 227"
+[1] "NaH2PO4_L_vs_Ctl p<=0.05 56 padj<=0.05 14"
+[1] "SnCl2_H_vs_Ctl p<=0.05 690 padj<=0.05 659"
+[1] "SnCl2_L_vs_Ctl p<=0.05 488 padj<=0.05 438"
+[1] "SnF2_H_vs_Ctl p<=0.05 690 padj<=0.05 665"
+[1] "SnF2_L_vs_Ctl p<=0.05 577 padj<=0.05 518"
++++++++++++++++++
+ping@stella:/media/ping/_media_G6D/project/OralTran/strain_seperate$ grep "p<=" Fnuc/deseq.out 
+[1] "ArgB_H_vs_Ctl p<=0.05 861 padj<=0.05 831"
+[1] "ArgB_L_vs_Ctl p<=0.05 131 padj<=0.05 34"
+[1] "CPC_vs_Ctl p<=0.05 265 padj<=0.05 145"
+[1] "H2O2_vs_Ctl p<=0.05 871 padj<=0.05 837"
+[1] "H8O8PZn_H_vs_Ctl p<=0.05 476 padj<=0.05 337"
+[1] "H8O8PZn_L_vs_Ctl p<=0.05 268 padj<=0.05 112"
+[1] "KNO3_H_vs_Ctl p<=0.05 937 padj<=0.05 900"
+[1] "KNO3_L_vs_Ctl p<=0.05 304 padj<=0.05 170"
+[1] "NaF_H_vs_Ctl p<=0.05 932 padj<=0.05 896"
+[1] "NaF_L_vs_Ctl p<=0.05 689 padj<=0.05 622"
+[1] "NaH2PO4_H_vs_Ctl p<=0.05 693 padj<=0.05 625"
+[1] "NaH2PO4_L_vs_Ctl p<=0.05 252 padj<=0.05 109"
+[1] "SnCl2_H_vs_Ctl p<=0.05 998 padj<=0.05 972"
+[1] "SnCl2_L_vs_Ctl p<=0.05 832 padj<=0.05 783"
+[1] "SnF2_H_vs_Ctl p<=0.05 928 padj<=0.05 899"
+[1] "SnF2_L_vs_Ctl p<=0.05 887 padj<=0.05 838"
++++++++++++++++++++++++++++++++++++++++++++++++
+(base) ping@stella:/media/ping/_media_G6D/project/OralTran/strain_seperate$ grep "p<=" Pgin/deseq.out 
+[1] "ArgB_H_vs_Ctl p<=0.05 1206 padj<=0.05 1152"
+[1] "ArgB_L_vs_Ctl p<=0.05 584 padj<=0.05 415"
+[1] "CPC_vs_Ctl p<=0.05 1408 padj<=0.05 1376"
+[1] "H2O2_vs_Ctl p<=0.05 772 padj<=0.05 624"
+[1] "H8O8PZn_H_vs_Ctl p<=0.05 703 padj<=0.05 558"
+[1] "H8O8PZn_L_vs_Ctl p<=0.05 310 padj<=0.05 77"
+[1] "KNO3_H_vs_Ctl p<=0.05 1106 padj<=0.05 1024"
+[1] "KNO3_L_vs_Ctl p<=0.05 360 padj<=0.05 151"
+[1] "NaF_H_vs_Ctl p<=0.05 1323 padj<=0.05 1270"
+[1] "NaF_L_vs_Ctl p<=0.05 625 padj<=0.05 453"
+[1] "NaH2PO4_H_vs_Ctl p<=0.05 953 padj<=0.05 831"
+[1] "NaH2PO4_L_vs_Ctl p<=0.05 387 padj<=0.05 180"
+[1] "SnCl2_H_vs_Ctl p<=0.05 1275 padj<=0.05 1239"
+[1] "SnCl2_L_vs_Ctl p<=0.05 717 padj<=0.05 545"
+[1] "SnF2_H_vs_Ctl p<=0.05 1056 padj<=0.05 975"
+[1] "SnF2_L_vs_Ctl p<=0.05 1381 padj<=0.05 1355"
+##################################################
+
+(base) ping@stella:/media/ping/_media_G6D/project/OralTran/strain_seperate$ grep "p<=" Ppan/deseq.out 
+[1] "ArgB_H_vs_Ctl p<=0.05 2182 padj<=0.05 2173"
+[1] "ArgB_L_vs_Ctl p<=0.05 461 padj<=0.05 153"
+[1] "CPC_vs_Ctl p<=0.05 2034 padj<=0.05 2015"
+[1] "H2O2_vs_Ctl p<=0.05 2052 padj<=0.05 2034"
+[1] "H8O8PZn_H_vs_Ctl p<=0.05 1204 padj<=0.05 1026"
+[1] "H8O8PZn_L_vs_Ctl p<=0.05 440 padj<=0.05 217"
+[1] "KNO3_H_vs_Ctl p<=0.05 2183 padj<=0.05 2173"
+[1] "KNO3_L_vs_Ctl p<=0.05 936 padj<=0.05 687"
+[1] "NaF_H_vs_Ctl p<=0.05 2011 padj<=0.05 1991"
+[1] "NaF_L_vs_Ctl p<=0.05 1712 padj<=0.05 1653"
+[1] "NaH2PO4_H_vs_Ctl p<=0.05 2099 padj<=0.05 2075"
+[1] "NaH2PO4_L_vs_Ctl p<=0.05 1686 padj<=0.05 1626"
+[1] "SnCl2_H_vs_Ctl p<=0.05 2122 padj<=0.05 2104"
+[1] "SnCl2_L_vs_Ctl p<=0.05 2012 padj<=0.05 1985"
+[1] "SnF2_H_vs_Ctl p<=0.05 1975 padj<=0.05 1945"
+[1] "SnF2_L_vs_Ctl p<=0.05 2003 padj<=0.05 1982"
+###################################################
+(base) ping@stella:/media/ping/_media_G6D/project/OralTran/strain_seperate$ grep "p<=" Smut/deseq.out 
+[1] "ArgB_H_vs_Ctl p<=0.05 1510 padj<=0.05 1490"
+[1] "ArgB_L_vs_Ctl p<=0.05 556 padj<=0.05 231"
+[1] "CPC_vs_Ctl p<=0.05 1480 padj<=0.05 1454"
+[1] "H2O2_vs_Ctl p<=0.05 1535 padj<=0.05 1519"
+[1] "H8O8PZn_H_vs_Ctl p<=0.05 782 padj<=0.05 592"
+[1] "H8O8PZn_L_vs_Ctl p<=0.05 770 padj<=0.05 551"
+[1] "KNO3_H_vs_Ctl p<=0.05 1386 padj<=0.05 1364"
+[1] "KNO3_L_vs_Ctl p<=0.05 620 padj<=0.05 333"
+[1] "NaF_H_vs_Ctl p<=0.05 1439 padj<=0.05 1411"
+[1] "NaF_L_vs_Ctl p<=0.05 1030 padj<=0.05 928"
+[1] "NaH2PO4_H_vs_Ctl p<=0.05 1173 padj<=0.05 1101"
+[1] "NaH2PO4_L_vs_Ctl p<=0.05 280 padj<=0.05 52"
+[1] "SnCl2_H_vs_Ctl p<=0.05 1468 padj<=0.05 1444"
+[1] "SnCl2_L_vs_Ctl p<=0.05 1395 padj<=0.05 1349"
+[1] "SnF2_H_vs_Ctl p<=0.05 1506 padj<=0.05 1485"
+[1] "SnF2_L_vs_Ctl p<=0.05 1432 padj<=0.05 1392"
+#######################################################
+grep "p<=" Tfor/deseq.out 
+[1] "ArgB_H_vs_Ctl p<=0.05 1731 padj<=0.05 1689"
+[1] "ArgB_L_vs_Ctl p<=0.05 232 padj<=0.05 30"
+[1] "CPC_vs_Ctl p<=0.05 1381 padj<=0.05 1234"
+[1] "H2O2_vs_Ctl p<=0.05 1446 padj<=0.05 1337"
+[1] "H8O8PZn_H_vs_Ctl p<=0.05 1597 padj<=0.05 1503"
+[1] "H8O8PZn_L_vs_Ctl p<=0.05 585 padj<=0.05 303"
+[1] "KNO3_H_vs_Ctl p<=0.05 1789 padj<=0.05 1745"
+[1] "KNO3_L_vs_Ctl p<=0.05 901 padj<=0.05 666"
+[1] "NaF_H_vs_Ctl p<=0.05 1507 padj<=0.05 1406"
+[1] "NaF_L_vs_Ctl p<=0.05 1537 padj<=0.05 1459"
+[1] "NaH2PO4_H_vs_Ctl p<=0.05 1147 padj<=0.05 959"
+[1] "NaH2PO4_L_vs_Ctl p<=0.05 1756 padj<=0.05 1706"
+[1] "SnCl2_H_vs_Ctl p<=0.05 1899 padj<=0.05 1862"
+[1] "SnCl2_L_vs_Ctl p<=0.05 1053 padj<=0.05 824"
+[1] "SnF2_H_vs_Ctl p<=0.05 1673 padj<=0.05 1586"
+[1] "SnF2_L_vs_Ctl p<=0.05 1514 padj<=0.05 1407"
+###############################################
+
+############Next step generate the kegg enrichment and the stat###############
+
+2_20_2020 Procedure for smaller figures

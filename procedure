@@ -1,0 +1,17 @@
+/media/BioData/GSS2911_RS_E coli_Thymol_Surface/bioinformatics/rsem_step2$ ls *.genes.results > /mnt/G6_2D/project/GSS2910_11Thymol/gene.list
+
+cd /media/BioData/GSS2911_RS_E coli_Thymol_Surface/bioinformatics/rsem_step2
+
+ls *.isoforms.results > /mnt/G6_2D/project/GSS2910_11Thymol/isoform.list
+
+perl ~/bin/combine_1col_from_multipledata.pl  /mnt/G6_2D/project/GSS2910_11Thymol/gene.list 5 > /mnt/G6_2D/project/GSS2910_11Thymol/gene.count
+
+perl ~/bin/combine_1col_from_multipledata.pl  /mnt/G6_2D/project/GSS2910_11Thymol/gene.list 6 > /mnt/G6_2D/project/GSS2910_11Thymol/gene.TPM
+
+perl ~/bin/combine_1col_from_multipledata.pl  /mnt/G6_2D/project/GSS2910_11Thymol/gene.list 7 > /mnt/G6_2D/project/GSS2910_11Thymol/gene.FPKM
+
+perl ~/bin/combine_1col_from_multipledata.pl  /mnt/G6_2D/project/GSS2910_11Thymol/isoform.list 5 > /mnt/G6_2D/project/GSS2910_11Thymol/isoform.count
+
+perl ~/bin/combine_1col_from_multipledata.pl  /mnt/G6_2D/project/GSS2910_11Thymol/isoform.list 6 > /mnt/G6_2D/project/GSS2910_11Thymol/isoform.TPM
+
+perl ~/bin/combine_1col_from_multipledata.pl  /mnt/G6_2D/project/GSS2910_11Thymol/isoform.list 7 > /mnt/G6_2D/project/GSS2910_11Thymol/isoform.FPKM
