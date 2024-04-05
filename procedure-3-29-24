@@ -1,0 +1,54 @@
+4-4-2024
+Rscript clean_pca_rnaseqGene.R count.Av AV 1>out.AV 2>err.AV&
+Rscript clean_pca_rnaseqGene.R count.Fn FN 1>out.FN 2>err.FN&
+Rscript clean_pca_rnaseqGene.R count.pg PG 1>out.PG 2>err.PG&
+Rscript clean_pca_rnaseqGene.R count.pp PP 1>out.PP 2>err.PP&
+Rscript clean_pca_rnaseqGene.R count.Sm SM 1>out.SM 2>err.SM&
+Rscript clean_pca_rnaseqGene.R count.Tf TF 1>out.TF 2>err.TF&
+Rscript clean_pca_rnaseqGene.R gene.count.5.CDSonly ALL 1>out.ALL 2>err.ALL&
+
+mv *.txt /Disk2/project/OralTrans/starRsen/deseq2
+cd /Disk2/project/OralTrans/starRsen/deseq2
+mkdir all_data
+mv ALL* all_data
+mv all* all_data
+
+cat *ArgB_H_vs_Ctl* >	ArgB_H_vs_Ctl.deseq2
+cat *ArgB_L_vs_Ctl* >	ArgB_L_vs_Ctl.deseq2
+cat *CPC_vs_Ctl* >	CPC_vs_Ctl.deseq2
+cat *H2O2_vs_Ctl* >	H2O2_vs_Ctl.deseq2
+cat *H8O8PZn_H_vs_Ctl* >	H8O8PZn_H_vs_Ctl.deseq2
+cat *H8O8PZn_L_vs_Ctl* >	H8O8PZn_L_vs_Ctl.deseq2
+cat *KNO3_H_vs_Ctl* >	KNO3_H_vs_Ctl.deseq2
+cat *KNO3_L_vs_Ctl* >	KNO3_L_vs_Ctl.deseq2
+cat *NaF_H_vs_Ctl* >	NaF_H_vs_Ctl.deseq2
+cat *NaF_L_vs_Ctl* >	NaF_L_vs_Ctl.deseq2
+cat *NaH2PO4_H_vs_Ctl* >	NaH2PO4_H_vs_Ctl.deseq2
+cat *NaH2PO4_L_vs_Ctl* >	NaH2PO4_L_vs_Ctl.deseq2
+cat *SnCl2_H_vs_Ctl* >	SnCl2_H_vs_Ctl.deseq2
+cat *SnCl2_L_vs_Ctl* >	SnCl2_L_vs_Ctl.deseq2
+cat *SnF2_H_vs_Ctl* >	SnF2_H_vs_Ctl.deseq2
+cat *SnF2_L_vs_Ctl* >	SnF2_L_vs_Ctl.deseq2
+mkdir individual_data
+mv *.txt individual_data/
+
+ls *.deseq2 > list
+perl ~/bin/combine_1col_from_multipledata.pl list 2 >out.2
+perl ~/bin/combine_1col_from_multipledata.pl list 3 >out.3
+perl ~/bin/combine_1col_from_multipledata.pl list 4 >out.4
+perl ~/bin/combine_1col_from_multipledata.pl list 5 >out.5
+perl ~/bin/combine_1col_from_multipledata.pl list 6 >out.6
+perl ~/bin/combine_1col_from_multipledata.pl list 7 >out.7
+perl ~/bin/select_data.pl ../../ann/combined_ann_4_4_2024 1 out.2 >tmp1
+perl ~/bin/combine_multiple_data_on_first_column_noname.pl out.3 out.6 out.7 out.4 out.2 out.5 tmp1 > STARRSEM.deseq2.xls
+
+
+3-29-2024
+grep -v pgi:PG_t gene.count.5 >tmp1 
+grep -v pgi:PG_16S tmp1 > tmp2
+grep -v pgi:PG_23S tmp2 > tmp3
+grep -v pgi:PG_5S tmp3 > tmp4
+mv tmp4 gene.count.5.clean1
+ 2034  grep -i repeat gene.count.5.clean1 >tmp1
+ 2035  mv tmp1 gene.count.5.clean2
+ 2036  history |tail -3 >>procedure-3-29-24 
